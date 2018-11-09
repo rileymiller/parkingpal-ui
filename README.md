@@ -1,1 +1,0 @@
-# parkingpal-ui

@@ -1,13 +1,25 @@
 {
   "name": "parkingpal-ui",
   "version": "1.0.0",
-  "description": "User Interface for Parking Pal",
-  "main": "app.js",
-  "repository": "https://github.com/rileymiller/parkingpal-ui.git",
-  "author": "Riley Miller <rileymiller@mymail.mines.edu>",
+  "description": "UI for Parking Pal",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --mode development",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rileymiller/parkingpal-ui.git"
+  },
+  "author": "",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rileymiller/parkingpal-ui/issues"
+  },
+  "homepage": "https://github.com/rileymiller/parkingpal-ui#readme",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0"
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2"
   }
 }
