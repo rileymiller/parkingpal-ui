@@ -1,35 +1,36 @@
 {
   "name": "parkingpal-ui",
   "version": "1.0.0",
-  "description": "UI for Parking Pal",
+  "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "webpack-dev-server --open --mode development",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack --mode development",
     "build": "webpack --mode production"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rileymiller/parkingpal-ui.git"
   },
+  "keywords": [],
   "author": "",
-  "license": "MIT",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/rileymiller/parkingpal-ui/issues"
   },
   "homepage": "https://github.com/rileymiller/parkingpal-ui#readme",
   "devDependencies": {
     "@babel/core": "^7.1.5",
-    "babel-core": "^6.26.3",
+    "@babel/preset-env": "^7.1.5",
+    "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.4",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
+    "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
-    "webpack": "^4.25.1",
-    "webpack-cli": "^3.1.2"
-  },
-  "dependencies": {
+    "prop-types": "^15.6.2",
     "react": "^16.6.1",
-    "react-dom": "^16.6.1"
+    "react-dom": "^16.6.1",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
   }
 }
