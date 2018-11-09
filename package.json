@@ -1,0 +1,13 @@
+{
+  "name": "parkingpal-ui",
+  "version": "1.0.0",
+  "description": "User Interface for Parking Pal",
+  "main": "app.js",
+  "repository": "https://github.com/rileymiller/parkingpal-ui.git",
+  "author": "Riley Miller <rileymiller@mymail.mines.edu>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
+  }
+}
