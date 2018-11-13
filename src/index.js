@@ -1,2 +1,2 @@
-import FormContainer from "./js/components/FormContainer";
+import AppView from "./js/components/AppView";
 

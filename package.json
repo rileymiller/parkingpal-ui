@@ -34,7 +34,10 @@
     "webpack": "^4.25.1",
     "webpack-cli": "^3.1.2"
   },
-  "devDependencies": {	
+  "devDependencies": {
+    "css-loader": "^1.0.1",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "style-loader": "^0.23.1",
     "webpack-dev-server": "^3.1.10"
   }
 }
