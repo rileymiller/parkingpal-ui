@@ -7,7 +7,7 @@ class AppView extends Component {
   constructor() {
     super();
     this.state = {
-      title: "Parking Pal"
+      title: "LiveLot-CSM"
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -40,7 +40,7 @@ class AppView extends Component {
 
     return (
       <div>
-        <h2>{this.state.title}</h2>
+        <h2 className="pp-title">{this.state.title}</h2>
         <div className="pp-lot-header row">
         <div className="col-sm-4"> Lot Name </div>
         <div className="col-sm-8"> Spots Available</div>

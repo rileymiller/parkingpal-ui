@@ -20,6 +20,13 @@
 	min-height: 50px;
 }
 
+.pp-title {
+	color: #9CDDFB;
+	font-weight: bold;
+	font-size: 60px;
+
+}
+
 .pp-lot .row{
 	min-height: 100px;
 	text-align: center;
@@ -30,6 +37,10 @@
 
 .pp-lot div:first-child {
 	border-right: solid 1px #9CDDFB;
+}
+
+.pp-lot-header div:nth-child(2) {
+	text-align: center;
 }
 
 .pp-lot-header div:first-child {
