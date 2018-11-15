@@ -41,6 +41,10 @@ class AppView extends Component {
     return (
       <div>
         <h2>{this.state.title}</h2>
+        <div className="pp-lot-header row">
+        <div className="col-sm-4"> Lot Name </div>
+        <div className="col-sm-8"> Spots Available</div>
+    </div>
         <LotView
           key={"K"}
           name={"K"}

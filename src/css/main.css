@@ -5,18 +5,36 @@
 	border-radius: 5px;
 	border: solid 1px #9CDDFB;
 	font-family: 'Arial';
-	font-size: 18px;
+	font-size: 32px;
 	padding: 10px;
 }
+.pp-lot-header {
+	-webkit-box-shadow: 3px 1px 2px 2px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  	-moz-box-shadow:    3px 1x 2px 2px #ccc;  /* Firefox 3.5 - 3.6 */
+	box-shadow:         3px 1px 2px 2px #ccc;
+	border-radius: 5px;
+	border: solid 1px #9CDDFB;
+	font-family: 'Arial';
+	font-size: 36px;
+	padding: 10px;
+	min-height: 50px;
+}
 
+.pp-lot .row{
+	min-height: 100px;
+	text-align: center;
+}
 .pp-lot:hover {
-	background-color: #FFE5C0;
+	background-color: #EEEEEE;
 } 
 
 .pp-lot div:first-child {
 	border-right: solid 1px #9CDDFB;
 }
 
+.pp-lot-header div:first-child {
+	border-right: solid 1px #9CDDFB;
+}
 .pp-lot div:nth-child(2) {
 	text-align: center;
 }

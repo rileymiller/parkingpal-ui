@@ -5,8 +5,8 @@ import '../../css/main.css'
 
 const LotView = ( {name, num } ) => (
     <div className="pp-lot row">
-        <div class="col-sm-4"> {name} </div>
-        <div class="col-sm-8"> {num}</div>
+        <div className="col-sm-4"> {name} </div>
+        <div className="col-sm-8"> {num}</div>
     </div>
 );
 
