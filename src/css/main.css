@@ -1,13 +1,17 @@
 .pp-lot {
-	-webkit-box-shadow: 3px 3px 2px 2px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-  	-moz-box-shadow:    3px 3px 2px 2px #ccc;  /* Firefox 3.5 - 3.6 */
-	box-shadow:         3px 2px 2px 2px #ccc;
+	-webkit-box-shadow: 3px 1px 2px 2px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  	-moz-box-shadow:    3px 1x 2px 2px #ccc;  /* Firefox 3.5 - 3.6 */
+	box-shadow:         3px 1px 2px 2px #ccc;
 	border-radius: 5px;
 	border: solid 1px #9CDDFB;
 	font-family: 'Arial';
 	font-size: 18px;
 	padding: 10px;
 }
+
+.pp-lot:hover {
+	background-color: #FFE5C0;
+} 
 
 .pp-lot div:first-child {
 	border-right: solid 1px #9CDDFB;
