@@ -18,16 +18,30 @@ class AppView extends Component {
       title: event.target.value
     });
   }
+  Lots = new Array()
+  Lots = [
+    {name: "K", num: 67},
+    {name: "D", num: 43},
+    {name: "M", num: 42},
+    {name: "Q", num: 10},
+    {name: "CT", num:22},
+    {name: "I", num: 33}
+  ]
+
+  LotViews = Lots.map((lot) => {
+    <LotView
+        key={lot.name}
+        name={lot.name}
+        num={lot.num}
+      />
+  })
 
   render() {
-    
+
     return (
       <div>
         <h2>{this.state.title}</h2>
-        <LotView
-          name="K"
-          num={67}
-        />
+          {LotViews}
       </div>
     );
   }

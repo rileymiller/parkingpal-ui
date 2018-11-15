@@ -6,4 +6,13 @@
 	border: solid 1px #9CDDFB;
 	font-family: 'Arial';
 	font-size: 18px;
+	padding: 10px;
+}
+
+.pp-lot div:first-child {
+	border-right: solid 1px #9CDDFB;
+}
+
+.pp-lot div:nth-child(2) {
+	text-align: center;
 }
