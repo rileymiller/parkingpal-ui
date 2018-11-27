@@ -158,7 +158,7 @@ class AppView extends Component {
         console.error(err)
       })
 
-      this.poll()
+      // this.poll()
   }
 
   render() {
