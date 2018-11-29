@@ -5,8 +5,12 @@
 	border-radius: 5px;
 	border: solid 1px #9CDDFB;
 	font-family: 'Arial';
-	font-size: 32px;
+	font-size: 62px;
 	padding: 10px;
+}
+
+.row {
+	margin-right: -20px;
 }
 .pp-lot-header {
 	-webkit-box-shadow: 3px 1px 2px 2px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
@@ -15,7 +19,7 @@
 	border-radius: 5px;
 	border: solid 1px #9CDDFB;
 	font-family: 'Arial';
-	font-size: 36px;
+	font-size: 80px;
 	padding: 10px;
 	min-height: 50px;
 }
@@ -23,7 +27,7 @@
 .pp-title {
 	color: #9CDDFB;
 	font-weight: bold;
-	font-size: 60px;
+	font-size: 112px;
 
 }
 

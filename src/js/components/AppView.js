@@ -162,7 +162,9 @@ class AppView extends Component {
   }
 
   render() {
-    let lots = this.state.lots        
+    // let lots = this.state.lots  
+    let lots = [ { lotname: "CTLM", numcars: 14 }, { "lotname": "Student Center", "numcars": 5 } ]
+
     return (
       <div>
         <h2 className="pp-title">{this.state.title}</h2>
