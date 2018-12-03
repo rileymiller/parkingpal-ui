@@ -1,10 +1,20 @@
+@font-face {
+    font-family: 'nuorder';
+    src: url('/font/NuOrder_Thin.ttf') format('truetype');
+}
+
+.pp-main {
+	background-color: #F8F2DC;
+	font-family: nuorder, 'Arial';
+}
+
 .pp-lot {
-	-webkit-box-shadow: 3px 1px 2px 2px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-  	-moz-box-shadow:    3px 1x 2px 2px #ccc;  /* Firefox 3.5 - 3.6 */
-	box-shadow:         3px 1px 2px 2px #ccc;
+	-webkit-box-shadow: 2px 1px 2px 2px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  	-moz-box-shadow:    2px 1x 2px 2px #ccc;  /* Firefox 3.5 - 3.6 */
+	box-shadow:         2px 1px 2px 2px #ccc;
 	border-radius: 5px;
-	border: solid 1px #9CDDFB;
-	font-family: 'Arial';
+	border: solid 1px #F8F2DC;
+	font-family: nuorder;
 	font-size: 62px;
 	padding: 10px;
 }
@@ -13,25 +23,27 @@
 	margin-right: -20px;
 }
 .pp-lot-header {
-	-webkit-box-shadow: 3px 1px 2px 2px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-  	-moz-box-shadow:    3px 1x 2px 2px #ccc;  /* Firefox 3.5 - 3.6 */
-	box-shadow:         3px 1px 2px 2px #ccc;
+	-webkit-box-shadow: 2px 1px 2px 2px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  	-moz-box-shadow:    2px 1x 2px 2px #ccc;  /* Firefox 3.5 - 3.6 */
+	box-shadow:         2px 1px 2px 2px #ccc;
 	border-radius: 5px;
-	border: solid 1px #9CDDFB;
-	font-family: 'Arial';
+	border: solid 1px #3A515F;
+	font-family: nuorder;
 	font-size: 80px;
 	padding: 10px;
 	min-height: 50px;
+	color: #3A515F;
 }
 
 .pp-title {
-	color: #9CDDFB;
+	color: #3A515F;
 	font-weight: bold;
 	font-size: 112px;
-
+	font-family: nuorder, 'Arial'
 }
 
 .pp-lot .row{
+	border: solid 5px #3A515F;
 	min-height: 100px;
 	text-align: center;
 }
@@ -40,7 +52,7 @@
 } 
 
 .pp-lot div:first-child {
-	border-right: solid 1px #9CDDFB;
+	border-right: solid 1px #3A515F;
 }
 
 .pp-lot-header div:nth-child(2) {
@@ -48,7 +60,7 @@
 }
 
 .pp-lot-header div:first-child {
-	border-right: solid 1px #9CDDFB;
+	border-right: solid 1px #3A515F;
 }
 .pp-lot div:nth-child(2) {
 	text-align: center;
