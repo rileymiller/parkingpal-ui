@@ -6,10 +6,10 @@ import AWS from "aws-sdk";
 import { resolve } from "url";
 
 AWS.config.update({
-  region: "us-east-2",
-  endpoint: "https://dynamodb.us-east-2.amazonaws.com",
-  accessKeyId: "AKIAIFYOEWMP7W4EPBHQ",
-  secretAccessKey: "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",
+  region: "us-east-1",
+  endpoint: "https://dynamodb.us-east-1.amazonaws.com",
+  accessKeyId: "AKIAI6NSAW6YQJL36SQA",
+  secretAccessKey: "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",
 });
 
 
@@ -19,7 +19,7 @@ class AppView extends Component {
   constructor() {
     super();
     this.state = {
-      title: "LiveLot-CSM",
+      title: "LiveLot-Mines",
       pollingIntervall: 2000,
       lots: []
     };
@@ -42,8 +42,8 @@ class AppView extends Component {
             console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
             reject(err)
         } else {
-            console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
-            console.log(data.Item)
+            // console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
+            // console.log(data.Item)
             resolve(data.Item)
         }
       });
@@ -51,16 +51,17 @@ class AppView extends Component {
     
   }
 
+
   poll() {
 
 
       const polling = setTimeout(() => {
       // stuff here
-        console.log('polling')
+        // console.log('POLLING')
         var table = "livelot";
 
         var lotname1 = "CTLM";
-        var lotname2 = "StudentCenter"
+        var lotname2 = "D"
 
         var CTLMparams = {
             TableName: table,
@@ -69,7 +70,7 @@ class AppView extends Component {
             }
         };
 
-        var StudentCenterparams = {
+        var Dparams = {
           TableName: table,
           Key:{
             "lotname": lotname2 
@@ -78,33 +79,47 @@ class AppView extends Component {
 
         this.getLotTuple(CTLMparams)
           .then((lot) => {
-            let joined = this.state.lots
-            joined[lot.lotname] = lot.numcars
-            console.log("joined[lot.lotname]", joined[lot.lotname])
+            if(this.state.lots[lot.lotname] !== lot.numcars) {
+              console.log("CTLM LOT UPDATED")
+              let updated_lot = this.state.lots
+              updated_lot[lot.lotname] = lot.numcars
+              this.setState({
+                lots: updated_lot
+              })
+              // this.state.lots[lot.lotname] = lot.numcars
+              // this.forceUpdate()
+              // console.log(this.state.lots)
+            }
             
-            this.setState({
-              lots: joined
-            })
+            // this.setState({
+            //   lots: joined
+            // })
           })
           .catch((err) => {
             console.error(err)
           })
 
-        this.getLotTuple(StudentCenterparams)
+        this.getLotTuple(Dparams)
           .then((lot) => {
-            let joined = this.state.lots
-            joined[lot.lotname] = lot.numcars
-            console.log("joined[lot.lotname]", joined[lot.lotname])
-            this.setState({
-              lots: joined
-            })
+            if(this.state.lots[lot.lotname] !== lot.numcars) {
+              console.log("D LOT UPDATED")
+              let updated_lot = this.state.lots
+              updated_lot[lot.lotname] = lot.numcars
+              this.setState({
+                lots: updated_lot
+              })
+              // this.state.lots[lot.lotname] = lot.numcars
+              // this.forceUpdate()
+              // console.log(this.state.lots)
+            }
+            
           })
           .catch((err) => {
             console.error(err)
           })
           // as last step you should call poll() method again
           // if you have asyncronous code you should not call it
-          // as a step of your async flow, as it has already is 
+          // as a step of your async flow, as it already is 
           // time period with setTimeout
           this.poll()
     }
@@ -120,7 +135,7 @@ class AppView extends Component {
     var table = "livelot";
 
     var lotname1 = "CTLM";
-    var lotname2 = "StudentCenter"
+    var lotname2 = "D"
 
     var CTLMparams = {
         TableName: table,
@@ -129,7 +144,7 @@ class AppView extends Component {
         }
     };
 
-    var StudentCenterparams = {
+    var Dparams = {
       TableName: table,
       Key:{
         "lotname": lotname2 
@@ -147,7 +162,7 @@ class AppView extends Component {
         console.error(err)
       })
 
-    this.getLotTuple(StudentCenterparams)
+    this.getLotTuple(Dparams)
       .then((lot) => {
         let joined = this.state.lots.concat(lot)
         this.setState({
@@ -158,13 +173,14 @@ class AppView extends Component {
         console.error(err)
       })
 
-      // this.poll()
+    this.poll()
   }
 
   render() {
-    // let lots = this.state.lots  
-    let lots = [ { lotname: "CTLM", numcars: 14 }, { "lotname": "Student Center", "numcars": 5 } ]
-
+    let lots = this.state.lots  
+    // let lots = [ { lotname: "CTLM", numcars: 14 }, { "lotname": "D", "numcars": 5 } ]
+    console.log('RENDERED CALLED')
+    console.log(lots)
     return (
       <div>
         <h2 className="pp-title">{this.state.title}</h2>
