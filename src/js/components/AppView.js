@@ -52,6 +52,17 @@ class AppView extends Component {
   }
 
 
+speak(msg) {
+    // debugger
+    if ('speechSynthesis' in window) {
+      let msgSpeak = new SpeechSynthesisUtterance();
+      msgSpeak.voice = speechSynthesis.getVoices()[0];
+      console.log('inside of speak')
+      msgSpeak.text = msg;
+      speechSynthesis.speak(msgSpeak);
+    }
+}
+
   poll() {
 
 
@@ -80,12 +91,13 @@ class AppView extends Component {
         this.getLotTuple(CTLMparams)
           .then((lot) => {
             if(this.state.lots[lot.lotname] !== lot.numcars) {
-              console.log("CTLM LOT UPDATED")
+              // console.log("CTLM LOT UPDATED")
               let updated_lot = this.state.lots
               updated_lot[lot.lotname] = lot.numcars
               this.setState({
                 lots: updated_lot
               })
+              this.speak('There are ' + String(lot.numcars) + ' spots available in the CTLM parking lot')
               // this.state.lots[lot.lotname] = lot.numcars
               // this.forceUpdate()
               // console.log(this.state.lots)
@@ -101,13 +113,16 @@ class AppView extends Component {
 
         this.getLotTuple(Dparams)
           .then((lot) => {
+            // console.log(this.state.lots, lots)
             if(this.state.lots[lot.lotname] !== lot.numcars) {
-              console.log("D LOT UPDATED")
+              // console.log("D LOT UPDATED")
+              // console.log("difference in lots:", this.state.lots[lot.lotname], lot.numcars)
               let updated_lot = this.state.lots
               updated_lot[lot.lotname] = lot.numcars
               this.setState({
                 lots: updated_lot
               })
+              this.speak('There are ' + String(lot.numcars) + ' spots available in the D parking lot')
               // this.state.lots[lot.lotname] = lot.numcars
               // this.forceUpdate()
               // console.log(this.state.lots)
@@ -150,37 +165,38 @@ class AppView extends Component {
         "lotname": lotname2 
       }
     };
-
+    // this.speak("I'm alive mother fucker")
+    
     this.getLotTuple(CTLMparams)
       .then((lot) => {
         let joined = this.state.lots.concat(lot)
         this.setState({
           lots: joined
         })
+        // this.poll()
       })
       .catch((err) => {
         console.error(err)
       })
-
-    this.getLotTuple(Dparams)
-      .then((lot) => {
-        let joined = this.state.lots.concat(lot)
-        this.setState({
-          lots: joined
+    
+      this.getLotTuple(Dparams)
+        .then((lot) => {
+          let joined = this.state.lots.concat(lot)
+          this.setState({
+            lots: joined
+          })
+          this.poll()
         })
-      })
-      .catch((err) => {
-        console.error(err)
-      })
-
-    this.poll()
+        .catch((err) => {
+          console.error(err)
+        })
   }
 
   render() {
     let lots = this.state.lots  
     // let lots = [ { lotname: "CTLM", numcars: 14 }, { "lotname": "D", "numcars": 5 } ]
-    console.log('RENDERED CALLED')
-    console.log(lots)
+    // console.log('RENDERED CALLED')
+    // console.log(lots)
     return (
       <div>
         <h2 className="pp-title">{this.state.title}</h2>
