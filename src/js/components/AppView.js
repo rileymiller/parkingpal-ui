@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Input from "./Input";
 import LotView from "./LotView";
+import Modal from './Modal'
 import AWS from "aws-sdk";
 import { resolve } from "url";
 
@@ -13,17 +14,26 @@ AWS.config.update({
 });
 
 
-
+const MINES_LOTS = ['A', 'B', 'C', 'CTLM', 'D', 'E', 'F', 'FF', 'I', 'J', 'K', 'O', 'Q', 'R']
+const TABLE_NAME = "livelot";
+const DOC_CLIENT = new AWS.DynamoDB.DocumentClient();
 
 class AppView extends Component {
+  isMounted = false
+
   constructor() {
     super();
     this.state = {
-      title: "LiveLot-Mines",
+      lots: [],
+      modalLotName: '',
+      modalNumCars: 0,
       pollingIntervall: 2000,
-      lots: []
+      showModal: false,
+      title: "LiveLot-Mines"
     };
     this.handleChange = this.handleChange.bind(this);
+    this.showModal = this.showModal.bind(this);
+    this.hideModal = this.hideModal.bind(this);
   }
 
   handleChange(event) {
@@ -33,11 +43,31 @@ class AppView extends Component {
     });
   }
 
+  showModal = (lotname, numcars) => {
+    console.log("showModal called")
+    console.log('lotname:',
+    lotname, " numcars: ",
+    numcars
+  )
+    this.setState({
+      showModal: true,
+      lotname: lotname,
+      numcars: numcars
+    })
+  }
+
+  hideModal = () => {
+    this.setState({
+      showModal: false
+    })
+  }
+  /**
+   * Gets the number of cars for the specified lot
+   */
   getLotTuple = (params) => {
     return new Promise( (resolve, reject) => {
-      const dynamodb = new AWS.DynamoDB.DocumentClient();
 
-      dynamodb.get(params, (err, data) => {
+      DOC_CLIENT.get(params, (err, data) => {
         if (err) {
             console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
             reject(err)
@@ -51,87 +81,86 @@ class AppView extends Component {
     
   }
 
+  /**
+   * Performs DynamoDB scan operation
+   */
+  onScan = (err, data) => {
+    if (err) {
+        console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
+        reject(err)
+    } else {
+        //print all the data
 
-speak(msg) {
-    // debugger
-    if ('speechSynthesis' in window) {
-      let msgSpeak = new SpeechSynthesisUtterance();
-      msgSpeak.voice = speechSynthesis.getVoices()[0];
-      console.log('inside of speak')
-      msgSpeak.text = msg;
-      speechSynthesis.speak(msgSpeak);
+        console.log("Scan succeeded.", data.Items)
+        // debugger
+        data.Items.forEach((lot) => {
+          console.log(
+                lot.lotname + ": ",
+                lot.numcars);
+        });
+
+        if(this.isMounted) {
+          this.setState({
+            lots: data.Items
+          })
+        }
+        // continue scanning if we have more movies, because
+        // scan can retrieve a maximum of 1MB of data
+        // if (typeof data.LastEvaluatedKey != "undefined") {
+        //     console.log("Scanning for more...");
+        //     params.ExclusiveStartKey = data.LastEvaluatedKey;
+        //     DOC_CLIENT.scan(params, onScan);
+        // }
+
+        resolve(data.Item)
     }
-}
+  }
+  /**
+   * Gets all of the lots in the table with their number of cars
+   */
+  getAllLots = (params) => {
+    return new Promise((resolve, reject) => {
+      DOC_CLIENT.scan(params, this.onScan);
+    })
+  }
+
+
+  speak(msg) {
+      // debugger
+      console.log('SPEAK CALLED')
+      if ('speechSynthesis' in window) {
+        let msgSpeak = new SpeechSynthesisUtterance();
+        msgSpeak.voice = speechSynthesis.getVoices()[0];
+        console.log('inside of speak')
+        msgSpeak.text = msg;
+        speechSynthesis.speak(msgSpeak);
+      }
+  }
 
   poll() {
 
 
       const polling = setTimeout(() => {
-      // stuff here
-        // console.log('POLLING')
-        var table = "livelot";
-
-        var lotname1 = "CTLM";
-        var lotname2 = "D"
-
-        var CTLMparams = {
-            TableName: table,
+        for(let i = 0; i < MINES_LOTS.length; i++) {
+          let lot_params = {
+            TableName: TABLE_NAME,
             Key:{
-              "lotname": lotname1
+              "lotname": MINES_LOTS[i]
             }
-        };
-
-        var Dparams = {
-          TableName: table,
-          Key:{
-            "lotname": lotname2 
           }
-        };
-
-        this.getLotTuple(CTLMparams)
-          .then((lot) => {
-            if(this.state.lots[lot.lotname] !== lot.numcars) {
-              // console.log("CTLM LOT UPDATED")
-              let updated_lot = this.state.lots
-              updated_lot[lot.lotname] = lot.numcars
+    
+          this.getLotTuple(lot_params)
+            .then((lot) => {
+              let joined = this.state.lots.concat(lot)
               this.setState({
-                lots: updated_lot
+                lots: joined
               })
-              this.speak('There are ' + String(lot.numcars) + ' spots available in the CTLM parking lot')
-              // this.state.lots[lot.lotname] = lot.numcars
-              // this.forceUpdate()
-              // console.log(this.state.lots)
-            }
-            
-            // this.setState({
-            //   lots: joined
-            // })
-          })
-          .catch((err) => {
-            console.error(err)
-          })
+            })
+            .catch((err) => {
+              console.error(err)
+            })
+        }
 
-        this.getLotTuple(Dparams)
-          .then((lot) => {
-            // console.log(this.state.lots, lots)
-            if(this.state.lots[lot.lotname] !== lot.numcars) {
-              // console.log("D LOT UPDATED")
-              // console.log("difference in lots:", this.state.lots[lot.lotname], lot.numcars)
-              let updated_lot = this.state.lots
-              updated_lot[lot.lotname] = lot.numcars
-              this.setState({
-                lots: updated_lot
-              })
-              this.speak('There are ' + String(lot.numcars) + ' spots available in the D parking lot')
-              // this.state.lots[lot.lotname] = lot.numcars
-              // this.forceUpdate()
-              // console.log(this.state.lots)
-            }
-            
-          })
-          .catch((err) => {
-            console.error(err)
-          })
           // as last step you should call poll() method again
           // if you have asyncronous code you should not call it
           // as a step of your async flow, as it already is 
@@ -141,62 +170,51 @@ speak(msg) {
       , this.state.pollingIntervall)
     
   }
+
+
   /**
    * Need to grab parking lot data
    */
   componentDidMount() {
-
+    this.isMounted = true
     console.log('component did mount')
-    var table = "livelot";
+    
+    // for(let i = 0; i < MINES_LOTS.length; i++) {
+    //   let lot_params = {
+    //     TableName: TABLE_NAME,
+    //     Key:{
+    //       "lotname": MINES_LOTS[i]
+    //     }
+    //   }
 
-    var lotname1 = "CTLM";
-    var lotname2 = "D"
+    //   this.getLotTuple(lot_params)
+    //     .then((lot) => {
+    //       let joined = this.state.lots.concat(lot)
+    //       this.setState({
+    //         lots: joined
+    //       })
+    //     })
+    //     .catch((err) => {
+    //       console.error(err)
+    //     })
+    // }
 
-    var CTLMparams = {
-        TableName: table,
-        Key:{
-          "lotname": lotname1
-        }
+    let getAllLotParams = {
+      TableName : TABLE_NAME,
+      ProjectionExpression:"lotname, numcars"
     };
 
-    var Dparams = {
-      TableName: table,
-      Key:{
-        "lotname": lotname2 
-      }
-    };
-    // this.speak("I'm alive mother fucker")
-    
-    this.getLotTuple(CTLMparams)
-      .then((lot) => {
-        let joined = this.state.lots.concat(lot)
-        this.setState({
-          lots: joined
-        })
-        // this.poll()
-      })
-      .catch((err) => {
-        console.error(err)
-      })
-    
-      this.getLotTuple(Dparams)
-        .then((lot) => {
-          let joined = this.state.lots.concat(lot)
-          this.setState({
-            lots: joined
-          })
-          this.poll()
-        })
-        .catch((err) => {
-          console.error(err)
-        })
+    this.getAllLots(getAllLotParams)
+    // this.poll()
+  }
+
+  componentWillUnmount() {
+    console.log('component unmounted')
+    this.isMounted = false
   }
 
   render() {
-    let lots = this.state.lots  
-    // let lots = [ { lotname: "CTLM", numcars: 14 }, { "lotname": "D", "numcars": 5 } ]
-    // console.log('RENDERED CALLED')
-    // console.log(lots)
+    const lots = this.state.lots
     return (
       <div>
         <h2 className="pp-title">{this.state.title}</h2>
@@ -204,14 +222,17 @@ speak(msg) {
         <div className="col-sm-4"> Lot Name </div>
         <div className="col-sm-8"> Spots Available</div>
       </div>
+        <Modal show={this.state.show} handleClose={this.hideModal} lotname={this.state.modalLotName} numcars={this.state.modalNumCars} />,
         { lots.map(lot => 
           <LotView
           key={lot.lotname}
           name={lot.lotname}
           num={lot.numcars}
+          openModal={this.showModal}
           />
         )}
       </div>
+      
     );
   }
 }
