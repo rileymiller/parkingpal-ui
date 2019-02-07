@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import '../../css/main.css'
 
 const Modal = ({ handleClose, show, lotname, numcars}) => {
-    console.log('Modal render method called')
+    console.log('Modal render method called', show)
     return (
     <div className={show ? "modal display-block" : "modal display-none"}>
         <section className="modal-main">

@@ -222,7 +222,7 @@ class AppView extends Component {
         <div className="col-sm-4"> Lot Name </div>
         <div className="col-sm-8"> Spots Available</div>
       </div>
-        <Modal show={this.state.show} handleClose={this.hideModal} lotname={this.state.modalLotName} numcars={this.state.modalNumCars} />,
+        <Modal show={this.state.showModal} handleClose={this.hideModal} lotname={this.state.modalLotName} numcars={this.state.modalNumCars} />,
         { lots.map(lot => 
           <LotView
           key={lot.lotname}
