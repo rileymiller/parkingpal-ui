@@ -34,6 +34,7 @@ class AppView extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
+    this.modalSubmit = this.modalSubmit.bind(this);
   }
 
   handleChange(event) {
@@ -63,13 +64,36 @@ class AppView extends Component {
   modalSubmit = (lotname, numcars) => {
     console.log('inside of modalSubmit')
     let updated_lots = this.state.lots
-    debugger
     updated_lots[lotname] = numcars
     console.log(updated_lots)
+
+    // make call to update the database
+    var params = {
+      TableName: TABLE_NAME,
+      Key:{
+          "lotname": lotname
+      },
+      UpdateExpression: "set numcars = :n",
+      ExpressionAttributeValues:{
+          ":n":numcars
+      },
+      ReturnValues:"UPDATED_NEW"
+    };
+    
+    console.log("Updating the item...");
+    DOC_CLIENT.update(params, function(err, data) {
+        if (err) {
+            console.error("Unable to update item. Error JSON:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2));
+        }
+    });
+
     this.setState({
       lots: updated_lots
     })
   }
+
   /**
    * Gets the number of cars for the specified lot
    */
