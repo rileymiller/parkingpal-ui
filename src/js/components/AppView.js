@@ -25,8 +25,8 @@ class AppView extends Component {
     super();
     this.state = {
       lots: [],
-      modalLotName: '',
-      modalNumCars: 0,
+      modalLotName: '#',
+      modalNumCars: -1,
       pollingIntervall: 2000,
       showModal: false,
       title: "LiveLot-Mines"
@@ -43,16 +43,13 @@ class AppView extends Component {
     });
   }
 
+
   showModal = (lotname, numcars) => {
-    console.log("showModal called")
-    console.log('lotname:',
-    lotname, " numcars: ",
-    numcars
-  )
+    console.log(numcars)
     this.setState({
-      showModal: true,
-      lotname: lotname,
-      numcars: numcars
+      modalNumCars: numcars,
+      modalLotName: lotname,
+      showModal: true
     })
   }
 
@@ -72,8 +69,6 @@ class AppView extends Component {
             console.error("Unable to read item. Error JSON:", JSON.stringify(err, null, 2));
             reject(err)
         } else {
-            // console.log("GetItem succeeded:", JSON.stringify(data, null, 2));
-            // console.log(data.Item)
             resolve(data.Item)
         }
       });
@@ -179,25 +174,6 @@ class AppView extends Component {
     this.isMounted = true
     console.log('component did mount')
     
-    // for(let i = 0; i < MINES_LOTS.length; i++) {
-    //   let lot_params = {
-    //     TableName: TABLE_NAME,
-    //     Key:{
-    //       "lotname": MINES_LOTS[i]
-    //     }
-    //   }
-
-    //   this.getLotTuple(lot_params)
-    //     .then((lot) => {
-    //       let joined = this.state.lots.concat(lot)
-    //       this.setState({
-    //         lots: joined
-    //       })
-    //     })
-    //     .catch((err) => {
-    //       console.error(err)
-    //     })
-    // }
 
     let getAllLotParams = {
       TableName : TABLE_NAME,
@@ -206,6 +182,11 @@ class AppView extends Component {
 
     this.getAllLots(getAllLotParams)
     // this.poll()
+  }
+
+  componentDidUpdate() {
+    console.log('component did update')
+    console.log(this.state)
   }
 
   componentWillUnmount() {
@@ -222,15 +203,15 @@ class AppView extends Component {
         <div className="col-sm-4"> Lot Name </div>
         <div className="col-sm-8"> Spots Available</div>
       </div>
-        <Modal show={this.state.showModal} handleClose={this.hideModal} lotname={this.state.modalLotName} numcars={this.state.modalNumCars} />,
+        [{this.state.showModal ? <Modal handleClose={this.hideModal} lotname={this.state.modalLotName} numcars={this.state.modalNumCars} show={this.state.showModal}  />: null},
         { lots.map(lot => 
           <LotView
           key={lot.lotname}
           name={lot.lotname}
-          num={lot.numcars}
+          numcars={lot.numcars}
           openModal={this.showModal}
           />
-        )}
+        )}]
       </div>
       
     );
