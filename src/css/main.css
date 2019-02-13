@@ -40,8 +40,41 @@
 .modal-body {
 	display: block;
 	text-align: center;
+	border-bottom: 1px solid #e9ecef;
 }
 
+.modal-body i {
+	font-size: 84px;
+	padding: 45px;
+	color: #adb1b5;
+	cursor: pointer;
+}
+
+.modal-numcars {
+	font-weight: bold;
+	font-size: 220px;
+}
+.modal-footer {
+	display: flex;
+	justify-content: flex-end;
+}
+
+
+
+.modal-button {
+	padding: 10px;
+	cursor: pointer;
+	border-left: 1px solid #e9ecef;
+}
+
+.modal-close {
+	background-color: #e9ecef;
+}
+
+.modal-button:hover {
+	background-color: #e9ecef;
+	border-radius: 5px;
+}
 .display-block {
 	display: block;
 }

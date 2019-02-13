@@ -54,8 +54,20 @@ class AppView extends Component {
   }
 
   hideModal = () => {
+    console.log('inside of hideModal')
     this.setState({
       showModal: false
+    })
+  }
+
+  modalSubmit = (lotname, numcars) => {
+    console.log('inside of modalSubmit')
+    let updated_lots = this.state.lots
+    debugger
+    updated_lots[lotname] = numcars
+    console.log(updated_lots)
+    this.setState({
+      lots: updated_lots
     })
   }
   /**
@@ -203,13 +215,13 @@ class AppView extends Component {
         <div className="col-sm-4"> Lot Name </div>
         <div className="col-sm-8"> Spots Available</div>
       </div>
-        [{this.state.showModal ? <Modal handleClose={this.hideModal} lotname={this.state.modalLotName} numcars={this.state.modalNumCars} show={this.state.showModal}  />: null},
+        [{this.state.showModal ? <Modal handleClose={this.hideModal} handleSubmit={this.modalSubmit} lotname={this.state.modalLotName} numcars={this.state.modalNumCars} show={this.state.showModal}  />: null},
         { lots.map(lot => 
           <LotView
-          key={lot.lotname}
-          name={lot.lotname}
-          numcars={lot.numcars}
-          openModal={this.showModal}
+            key={lot.lotname}
+            name={lot.lotname}
+            numcars={lot.numcars}
+            openModal={this.showModal}
           />
         )}]
       </div>
