@@ -17,14 +17,14 @@ class LotView extends Component {
 
     _handleClick = () => {
         console.log('handling click')
-        this.props.openModal(this.state.name, this.state.numcars)
+        this.props.openModal(this.props.name, this.props.numcars)
     }
     render() {
         return(
             <div className="pp-lot row">
-                <div className="col-sm-4"> {this.state.name} </div>
+                <div className="col-sm-4"> {this.props.name} </div>
                 <div className="col-sm-8 pp-car-display" onClick={this._handleClick} >
-                    {this.state.numcars}
+                    {this.props.numcars}
                     <i className="fas fa-edit"></i>
                 </div>
             </div>

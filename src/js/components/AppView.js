@@ -64,9 +64,17 @@ class AppView extends Component {
   modalSubmit = (lotname, numcars) => {
     console.log('inside of modalSubmit')
     let updated_lots = this.state.lots
-    updated_lots[lotname] = numcars
+    let updated_lot = updated_lots[lotname]
+    updated_lot = {
+      numcars: parseInt(numcars),
+      lotname: lotname
+    }
+    const index = updated_lots.findIndex((lot) => lot.lotname === lotname)
+    debugger
+    updated_lots[index] = updated_lot
     console.log(updated_lots)
 
+    updated_lots.filter
     // make call to update the database
     var params = {
       TableName: TABLE_NAME,
@@ -231,6 +239,8 @@ class AppView extends Component {
   }
 
   render() {
+    console.log('rerendered')
+    debugger
     const lots = this.state.lots
     return (
       <div>
@@ -239,7 +249,7 @@ class AppView extends Component {
         <div className="col-sm-4"> Lot Name </div>
         <div className="col-sm-8"> Spots Available</div>
       </div>
-        [{this.state.showModal ? <Modal handleClose={this.hideModal} handleSubmit={this.modalSubmit} lotname={this.state.modalLotName} numcars={this.state.modalNumCars} show={this.state.showModal}  />: null},
+        {this.state.showModal ? <Modal handleClose={this.hideModal} handleSubmit={this.modalSubmit} lotname={this.state.modalLotName} numcars={this.state.modalNumCars} show={this.state.showModal}  />: null},
         { lots.map(lot => 
           <LotView
             key={lot.lotname}
@@ -247,7 +257,7 @@ class AppView extends Component {
             numcars={lot.numcars}
             openModal={this.showModal}
           />
-        )}]
+        )}
       </div>
       
     );
