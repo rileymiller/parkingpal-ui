@@ -70,7 +70,7 @@ class AppView extends Component {
       lotname: lotname
     }
     const index = updated_lots.findIndex((lot) => lot.lotname === lotname)
-    debugger
+    // debugger
     updated_lots[index] = updated_lot
     console.log(updated_lots)
 
@@ -240,7 +240,7 @@ class AppView extends Component {
 
   render() {
     console.log('rerendered')
-    debugger
+    // debugger
     const lots = this.state.lots
     return (
       <div>

@@ -23,7 +23,7 @@
 	background: white;
 	width: 60%;
 	height: auto;
-	top:30%;
+	top:50%;
 	left:50%;
 	transform: translate(-50%,-50%);
 	border-radius: 5px;
@@ -44,7 +44,7 @@
 }
 
 .modal-body i {
-	font-size: 84px;
+	font-size: 125px;
 	padding: 45px;
 	color: #adb1b5;
 	cursor: pointer;
@@ -52,7 +52,7 @@
 
 .modal-numcars {
 	font-weight: bold;
-	font-size: 220px;
+	font-size: 400px;
 }
 .modal-footer {
 	display: flex;
