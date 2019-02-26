@@ -25,7 +25,7 @@ class LotView extends Component {
                 <div className="col-sm-4"> {this.props.name} </div>
                 <div className="col-sm-8 pp-car-display" onClick={this._handleClick} >
                     {this.props.numcars}
-                    <i className="fas fa-edit"></i>
+                    {this.props.isAdmin ? <i className="fas fa-edit"></i>: null }
                 </div>
             </div>
         )
@@ -35,7 +35,8 @@ class LotView extends Component {
 LotView.propTypes = {
     name: PropTypes.string,
     numcars: PropTypes.number,
-    openModal: PropTypes.func
+    openModal: PropTypes.func,
+    isAdmin: PropTypes.bool
 }
 
 export default LotView;

@@ -3,7 +3,13 @@
     src: url('/font/NuOrder_Thin.ttf') format('truetype');
 }
 
-
+.auth {
+	background-color: #F8F2DC;
+	font-size: 24px;
+	min-width: 150px;
+	padding: 10px;
+	border: none;
+}
 .pp-main {
 	background-color: #F8F2DC;
 	font-family: nuorder, 'Arial';
@@ -21,7 +27,7 @@
 .modal-main {
 	position:fixed;
 	background: white;
-	width: 60%;
+	width: 80%;
 	height: auto;
 	top:50%;
 	left:50%;
@@ -48,12 +54,21 @@
 	padding: 45px;
 	color: #adb1b5;
 	cursor: pointer;
+	position:relative;
+	top: -0.5em;
 }
 
 .modal-numcars {
+	display: inline-block;
 	font-weight: bold;
 	font-size: 400px;
 }
+
+.modal-numcars:focus {
+	/* outline-color: transparent; */
+	outline: none;
+}
+
 .modal-footer {
 	display: flex;
 	justify-content: flex-end;

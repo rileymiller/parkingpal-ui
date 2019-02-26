@@ -27,9 +27,11 @@ class AppView extends Component {
       lots: [],
       modalLotName: '#',
       modalNumCars: -1,
+      passwordInput: '',
       pollingIntervall: 2000,
       showModal: false,
-      title: "LiveLot-Mines"
+      title: "LiveLot-Mines",
+      isAdmin: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.showModal = this.showModal.bind(this);
@@ -211,6 +213,13 @@ class AppView extends Component {
   }
 
 
+  _checkPassword = (e) => {
+    this.setState({
+      passwordInput: e.target.value,
+      isAdmin: e.target.value === 'livelotdevforlyfe'
+    })
+  }
+
   /**
    * Need to grab parking lot data
    */
@@ -256,8 +265,11 @@ class AppView extends Component {
             name={lot.lotname}
             numcars={lot.numcars}
             openModal={this.showModal}
+            isAdmin={this.state.isAdmin}
           />
         )}
+        <br />
+        <input className='auth' value={this.state.passwordInput} onChange={this._checkPassword} />
       </div>
       
     );
