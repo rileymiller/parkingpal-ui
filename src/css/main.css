@@ -1,3 +1,6 @@
+html {
+	overflow-x: hidden; 
+}
 .auth {
 	background-color: #F8F2DC;
 	font-size: 24px;
