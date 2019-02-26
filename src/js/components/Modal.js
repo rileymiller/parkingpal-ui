@@ -59,7 +59,8 @@ class Modal extends Component {
 
                 <div className='modal-body'>
                     <i className="fa fa-minus" aria-hidden="true" onClick={this._handleDecrement}></i>
-                    <div className='modal-numcars' contentEditable>{this.state.numcars}</div>
+                     {/* <input className='modal-numcars' autoFocus={true} value={this.state.numcars} type={"number"} onChange={this._handleChange} /> */}
+                    <div className='modal-numcars'>{this.state.numcars}</div>
                     <i className="fa fa-plus" aria-hidden="true" onClick={this._handleIncrement}></i>
                 </div>
                 <div className='modal-footer'>
