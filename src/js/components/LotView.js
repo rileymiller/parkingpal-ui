@@ -23,7 +23,7 @@ class LotView extends Component {
         return(
             <div className="pp-lot row">
                 <div className="col-sm-4"> {this.props.name} </div>
-                <div className="col-sm-8 pp-car-display" onClick={this._handleClick} >
+                <div className="col-sm-8 pp-car-display" onClick={this.props.isAdmin ? this._handleClick : null } >
                     {this.props.numcars}
                     {this.props.isAdmin ? <i className="fas fa-edit"></i>: null }
                 </div>
