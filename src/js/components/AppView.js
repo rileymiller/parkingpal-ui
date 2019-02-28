@@ -69,7 +69,8 @@ class AppView extends Component {
     let updated_lot = updated_lots[lotname]
     updated_lot = {
       numcars: parseInt(numcars),
-      lotname: lotname
+      lotname: lotname,
+      display: true
     }
     const index = updated_lots.findIndex((lot) => lot.lotname === lotname)
     // debugger
@@ -230,7 +231,7 @@ class AppView extends Component {
 
     let getAllLotParams = {
       TableName : TABLE_NAME,
-      ProjectionExpression:"lotname, numcars"
+      ProjectionExpression:"lotname, numcars, display"
     };
 
     this.getAllLots(getAllLotParams)
@@ -259,7 +260,10 @@ class AppView extends Component {
         <div className="col-sm-8"> Spots Available</div>
       </div>
         {this.state.showModal ? <Modal handleClose={this.hideModal} handleSubmit={this.modalSubmit} lotname={this.state.modalLotName} numcars={this.state.modalNumCars} show={this.state.showModal}  />: null}
-        { lots.map(lot => 
+        { 
+          lots.filter((lot) => {
+            return lot.display
+          }).map(lot => 
           <LotView
             key={lot.lotname}
             name={lot.lotname}
