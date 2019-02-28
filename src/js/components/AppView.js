@@ -179,35 +179,35 @@ class AppView extends Component {
       }
   }
 
-  poll() {
+  poll(getAllLotParams) {
 
 
       const polling = setTimeout(() => {
-        for(let i = 0; i < MINES_LOTS.length; i++) {
-          let lot_params = {
-            TableName: TABLE_NAME,
-            Key:{
-              "lotname": MINES_LOTS[i]
-            }
-          }
-    
-          this.getLotTuple(lot_params)
-            .then((lot) => {
-              let joined = this.state.lots.concat(lot)
-              this.setState({
-                lots: joined
-              })
-            })
-            .catch((err) => {
-              console.error(err)
-            })
-        }
+      //   for(let i = 0; i < MINES_LOTS.length; i++) {
+      //     let lot_params = {
+      //       TableName: TABLE_NAME,
+      //       Key:{
+      //         "lotname": MINES_LOTS[i]
+      //       }
+      //     }
+      this.getAllLots(getAllLotParams)
+      //     this.getLotTuple(lot_params)
+      //       .then((lot) => {
+      //         let joined = this.state.lots.concat(lot)
+      //         this.setState({
+      //           lots: joined
+      //         })
+      //       })
+      //       .catch((err) => {
+      //         console.error(err)
+      //       })
+      //   }
 
           // as last step you should call poll() method again
           // if you have asyncronous code you should not call it
           // as a step of your async flow, as it already is 
           // time period with setTimeout
-          this.poll()
+          this.poll(getAllLotParams)
     }
       , this.state.pollingIntervall)
     
@@ -229,13 +229,11 @@ class AppView extends Component {
     console.log('component did mount')
     
 
-    let getAllLotParams = {
+    const getAllLotParams = {
       TableName : TABLE_NAME,
       ProjectionExpression:"lotname, numcars, display"
     };
-
-    this.getAllLots(getAllLotParams)
-    // this.poll()
+    this.poll(getAllLotParams)
   }
 
   componentDidUpdate() {
