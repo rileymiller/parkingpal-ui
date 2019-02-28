@@ -262,7 +262,7 @@ class AppView extends Component {
         {this.state.showModal ? <Modal handleClose={this.hideModal} handleSubmit={this.modalSubmit} lotname={this.state.modalLotName} numcars={this.state.modalNumCars} show={this.state.showModal}  />: null}
         { 
           lots.filter((lot) => {
-            return lot.display
+            return this.state.isAdmin || lot.display
           }).map(lot => 
           <LotView
             key={lot.lotname}
