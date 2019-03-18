@@ -257,10 +257,7 @@ class AppView extends Component {
         <div className="col-sm-4"> Lot Name </div>
         <div className="col-sm-8"> Spots Available</div>
       </div>
-      <h1>
-        No live data due to snow
-      </h1>
-        {/* {this.state.showModal ? <Modal handleClose={this.hideModal} handleSubmit={this.modalSubmit} lotname={this.state.modalLotName} numcars={this.state.modalNumCars} show={this.state.showModal}  />: null}
+        {this.state.showModal ? <Modal handleClose={this.hideModal} handleSubmit={this.modalSubmit} lotname={this.state.modalLotName} numcars={this.state.modalNumCars} show={this.state.showModal}  />: null}
         { 
           lots.filter((lot) => {
             return this.state.isAdmin || lot.display
@@ -274,7 +271,7 @@ class AppView extends Component {
           />
         )}
         <br />
-        <input className='auth' value={this.state.passwordInput} onChange={this._checkPassword} /> */}
+        <input className='auth' value={this.state.passwordInput} onChange={this._checkPassword} />
       </div>
       
     );
